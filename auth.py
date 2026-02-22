@@ -1,9 +1,14 @@
 import bcrypt
 
-USERNAME = "admin"
-PASSWORD_HASH = bcrypt.hashpw("admin123".encode(), bcrypt.gensalt())
+# Create hashed password once
+def get_hashed_password():
+    password = "admin123"
+    return bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+
+# Store hashed password
+HASHED_PASSWORD = get_hashed_password()
 
 def authenticate(username, password):
-    if username == USERNAME:
-        return bcrypt.checkpw(password.encode(), PASSWORD_HASH)
+    if username == "admin":
+        return bcrypt.checkpw(password.encode(), HASHED_PASSWORD)
     return False
